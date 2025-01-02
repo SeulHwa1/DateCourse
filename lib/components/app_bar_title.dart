@@ -6,8 +6,8 @@ class AppBarTitle extends StatelessWidget {
   final int selectedIndex;
   final Function(int) onTap;
 
-  const AppBarTitle({required this.selectedIndex, required this.onTap, Key? key})
-      : super(key: key);
+  const AppBarTitle(
+      {required this.selectedIndex, required this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,8 @@ class AppBarTitle extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => NotificationsScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => NotificationsScreen()),
                 );
               },
               child: Text(

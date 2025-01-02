@@ -3,6 +3,8 @@ import '../components/white_box1.dart'; // WhiteBox 가져오기
 import 'date_plan.dart'; // DatePlan 가져오기
 
 class RecommendScreen extends StatelessWidget {
+  const RecommendScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +22,12 @@ class RecommendScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => DatePlan()), // DatePlan으로 이동
+                  MaterialPageRoute(
+                      builder: (context) => DatePlan()), // DatePlan으로 이동
                 );
               },
             ),
-            
+
             Expanded(
               child: Container(), // 나머지 공간은 투명하게 유지
             ),

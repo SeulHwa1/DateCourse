@@ -9,14 +9,14 @@ class WhiteBox extends StatelessWidget {
   final VoidCallback onTap;
 
   const WhiteBox({
-    Key? key,
+    super.key,
     required this.title,
     required this.date,
     required this.dateDetails,
     required this.location,
     required this.locationDetails,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
