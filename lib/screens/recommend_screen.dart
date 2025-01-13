@@ -5,6 +5,8 @@ import 'date_log.dart';
 import 'date_course.dart';
 
 class RecommendScreen extends StatelessWidget {
+  const RecommendScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,11 +24,13 @@ class RecommendScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => DatePlan()), // DatePlan으로 이동
+                  MaterialPageRoute(
+                      builder: (context) => DatePlan()), // DatePlan으로 이동
                 );
               },
             ),
 
+<<<<<<< HEAD
             // WhiteBox 사이 간격
             SizedBox(height: 1.0),
 
@@ -75,6 +79,8 @@ class RecommendScreen extends StatelessWidget {
             // 마지막 여백
             SizedBox(height: 16.0),
 
+=======
+>>>>>>> 7f1ebd3500cc8fbee05e2097cf2dbff4d5773343
             Expanded(
               child: Container(), // 나머지 공간은 투명하게 유지
             ),

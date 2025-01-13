@@ -10,15 +10,19 @@ class WhiteBox extends StatelessWidget {
   final Widget? child;
 
   const WhiteBox({
-    Key? key,
+    super.key,
     required this.title,
     this.date,
     this.dateDetails,
     this.location,
     this.locationDetails,
     required this.onTap,
+<<<<<<< HEAD
     this.child,
   }) : super(key: key);
+=======
+  });
+>>>>>>> 7f1ebd3500cc8fbee05e2097cf2dbff4d5773343
 
   @override
   Widget build(BuildContext context) {
