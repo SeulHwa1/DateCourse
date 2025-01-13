@@ -30,7 +30,6 @@ class RecommendScreen extends StatelessWidget {
               },
             ),
 
-<<<<<<< HEAD
             // WhiteBox 사이 간격
             SizedBox(height: 1.0),
 
@@ -50,7 +49,8 @@ class RecommendScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => DateLog()), // DateLog으로 이동
+                  MaterialPageRoute(
+                      builder: (context) => DateLog()), // DateLog으로 이동
                 );
               },
             ),
@@ -71,7 +71,8 @@ class RecommendScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => DateCourse()), // DateCourse으로 이동
+                  MaterialPageRoute(
+                      builder: (context) => DateCourse()), // DateCourse으로 이동
                 );
               },
             ),
@@ -79,8 +80,6 @@ class RecommendScreen extends StatelessWidget {
             // 마지막 여백
             SizedBox(height: 16.0),
 
-=======
->>>>>>> 7f1ebd3500cc8fbee05e2097cf2dbff4d5773343
             Expanded(
               child: Container(), // 나머지 공간은 투명하게 유지
             ),

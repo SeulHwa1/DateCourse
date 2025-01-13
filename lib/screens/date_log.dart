@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class DateLog extends StatelessWidget {
+  const DateLog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
