@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../screens/notifications_screen.dart';
 import '../screens/points_screen.dart';
-import '../screens/recommend_screen.dart';
 
 class AppBarTitle extends StatelessWidget {
   final int selectedIndex;
@@ -10,8 +9,8 @@ class AppBarTitle extends StatelessWidget {
   const AppBarTitle({
     required this.selectedIndex,
     required this.onTap,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
