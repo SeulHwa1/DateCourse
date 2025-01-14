@@ -1,51 +1,118 @@
 import 'package:flutter/material.dart';
 import 'screens/main_screen.dart';
 import 'screens/recommend_screen.dart';
+import 'screens/notifications_screen.dart';
+import 'screens/points_screen.dart';
 import 'components/app_bar_title.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  int _selectedIndex = 0; // 선택된 화면의 인덱스
-
-  // 화면 리스트
-  final List<Widget> _pages = [
-    MainScreen(),
-    RecommendScreen(),
-  ];
-
-  // AppBar 빌더 메서드
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      backgroundColor: Color(0xFFFFF8FA),
-      title: AppBarTitle(
-        selectedIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index; // 선택된 화면 변경
-          });
-        },
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: _buildAppBar(), // AppBar 생성
-        backgroundColor: Color(0xFFB21C44), // Body 배경색
-        body: _pages[_selectedIndex], // 현재 선택된 화면 표시
+      home: const AppLayout(),
+    );
+  }
+}
+
+class AppLayout extends StatefulWidget {
+  const AppLayout({super.key});
+
+  @override
+  _AppLayoutState createState() => _AppLayoutState();
+}
+
+class _AppLayoutState extends State<AppLayout> {
+  int _currentBottomIndex = 0; // 하단 네비게이션 바 상태
+  int _currentTopIndex = 0; // 상단 네비게이션 바 상태
+
+  // 하단 네비게이션 바 페이지
+  final List<Widget> _bottomPages = [
+    MainScreen(), // 홈 화면
+    const SimpleScreen(title: "지도입니다."), // 지도 화면
+    const SimpleScreen(title: "같이 걷기 화면입니다."), // 같이 걷기 화면
+    const SimpleScreen(title: "서랍 화면입니다."), // 서랍 화면
+    const SimpleScreen(title: "프로필 화면입니다."), // 프로필 화면
+  ];
+
+  // 상단 네비게이션 바 페이지
+  final List<Widget> _topPages = [
+    MainScreen(), // 상단 메인 화면
+    RecommendScreen(), // 추천피드 화면
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _currentBottomIndex == 0 // 홈 탭에서만 상단바 표시
+          ? PreferredSize(
+              preferredSize: const Size.fromHeight(60.0),
+              child: AppBarTitle(
+                selectedIndex: _currentTopIndex,
+                onTap: (index) {
+                  setState(() {
+                    _currentTopIndex = index; // 상단 네비게이션 바 상태 변경
+                  });
+                },
+              ),
+            )
+          : null,
+      body: _currentBottomIndex == 0
+          ? _topPages[_currentTopIndex] // 상단 네비게이션 바 상태에 따라 화면 표시
+          : _bottomPages[_currentBottomIndex], // 하단 네비게이션 바 상태에 따라 화면 표시
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentBottomIndex,
+        onTap: (index) {
+          setState(() {
+            _currentBottomIndex = index; // 하단 네비게이션 바 상태 변경
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '홈',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.map),
+            label: '지도',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.directions_walk),
+            label: '같이 걷기',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu),
+            label: '서랍',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: '프로필',
+          ),
+        ],
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.white,
+      ),
+    );
+  }
+}
+
+class SimpleScreen extends StatelessWidget {
+  final String title;
+  const SimpleScreen({required this.title, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        title,
+        style: const TextStyle(fontSize: 24),
       ),
     );
   }
