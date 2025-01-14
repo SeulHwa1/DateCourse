@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
-class RecommendScreen extends StatelessWidget {
-  const RecommendScreen({super.key});
+class DateCourse extends StatelessWidget {
+  const DateCourse({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("최근 데이트 서랍 (코스)"),
+      ),
       body: Center(
         child: Text(
-          "추천 화면입니다!",
+          "여기는 데이트 서랍(코스) 입니다!",
           style: TextStyle(fontSize: 24),
         ),
       ),
