@@ -27,28 +27,28 @@ class AppLayout extends StatefulWidget {
 }
 
 class _AppLayoutState extends State<AppLayout> {
-  int _currentBottomIndex = 0; // 하단 네비게이션 바 상태
-  int _currentTopIndex = 0; // 상단 네비게이션 바 상태
+  int _currentBottomIndex = 0;
+  int _currentTopIndex = 0;
 
   // 하단 네비게이션 바 페이지
   final List<Widget> _bottomPages = [
-    MainScreen(), // 홈 화면
-    const SimpleScreen(title: "지도입니다."), // 지도 화면
-    const SimpleScreen(title: "일정 화면입니다."), // 같이 걷기 화면
-    const SimpleScreen(title: "서랍 화면입니다."), // 서랍 화면
-    const SimpleScreen(title: "프로필 화면입니다."), // 프로필 화면
+    const MainScreen(),
+    const Center(child: Text('지도 화면')), // Placeholder for map screen
+    const Center(child: Text('일정 화면')), // Placeholder for schedule screen
+    const Center(child: Text('서랍 화면')), // Placeholder for drawer screen
+    const Center(child: Text('프로필 화면')), // Placeholder for profile screen
   ];
 
   // 상단 네비게이션 바 페이지
   final List<Widget> _topPages = [
-    MainScreen(), // 상단 메인 화면
-    RecommendScreen(), // 추천피드 화면
+    const MainScreen(),
+    const RecommendScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _currentBottomIndex == 0 // 홈 탭에서만 상단바 표시
+      appBar: _currentBottomIndex == 0
           ? PreferredSize(
               preferredSize: const Size.fromHeight(60.0),
               child: AppBarTitle(
@@ -62,55 +62,50 @@ class _AppLayoutState extends State<AppLayout> {
             )
           : null,
       body: _currentBottomIndex == 0
-          ? _topPages[_currentTopIndex] // 상단 네비게이션 바 상태에 따라 화면 표시
-          : _bottomPages[_currentBottomIndex], // 하단 네비게이션 바 상태에 따라 화면 표시
+          ? _topPages[_currentTopIndex]
+          : _bottomPages[_currentBottomIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentBottomIndex,
         onTap: (index) {
           setState(() {
-            _currentBottomIndex = index; // 하단 네비게이션 바 상태 변경
+            _currentBottomIndex = index;
+            if (index != 0) _currentTopIndex = 0; // 상단 네비게이션 바 초기화
           });
         },
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: _currentBottomIndex == 0
+                ? const Icon(Icons.home)
+                : const Icon(Icons.home_outlined),
             label: '홈',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.map),
+            icon: _currentBottomIndex == 1
+                ? const Icon(Icons.map)
+                : const Icon(Icons.map_outlined),
             label: '지도',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.event),
+            icon: _currentBottomIndex == 2
+                ? const Icon(Icons.event)
+                : const Icon(Icons.event_outlined),
             label: '일정',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
+            icon: _currentBottomIndex == 3
+                ? const Icon(Icons.menu)
+                : const Icon(Icons.menu_outlined),
             label: '서랍',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: _currentBottomIndex == 4
+                ? const Icon(Icons.person)
+                : const Icon(Icons.person_outline),
             label: '프로필',
           ),
         ],
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.grey,
-        backgroundColor: Colors.white,
-      ),
-    );
-  }
-}
-
-class SimpleScreen extends StatelessWidget {
-  final String title;
-  const SimpleScreen({required this.title, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        title,
-        style: const TextStyle(fontSize: 24),
       ),
     );
   }

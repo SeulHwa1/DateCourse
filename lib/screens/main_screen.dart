@@ -3,6 +3,8 @@ import '../components/white_box1.dart';
 import 'date_plan.dart';
 import 'date_log.dart';
 import 'date_course.dart';
+import 'monthly_date_log.dart'; // 월간 로그 화면 import
+import 'date_log_detail.dart'; // 상세 로그 화면 import
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -12,7 +14,7 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          color: const Color(0xFFB21C44), // 전체 배경색 설정 (빨간색)
+          color: const Color(0xFFB21C44),
           child: Column(
             children: [
               // 첫 번째 WhiteBox
@@ -69,10 +71,89 @@ class MainScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
 
-              Container(
-                height: 50.0, // 여백 높이 설정
-                color: const Color(0xFFB21C44), // 배경색 일치
+              // 월간 데이트 로그 섹션
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MonthlyDateLog()),
+                  );
+                },
+                child: Container(
+                  color: Colors.white,
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          Text(
+                            "2025년 1월",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            size: 16,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16.0),
+                      Table(
+                        children: [
+                          for (int i = 0; i < 5; i++)
+                            TableRow(
+                              children: List.generate(
+                                7,
+                                (index) {
+                                  final day = i * 7 + index + 1;
+                                  if (day > 31) {
+                                    return Container(); // 빈 날짜
+                                  }
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              DateLogDetail(date: day),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      height: 60,
+                                      margin: const EdgeInsets.all(4.0),
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[300],
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          day.toString(),
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
+
+              const SizedBox(height: 16.0),
             ],
           ),
         ),
