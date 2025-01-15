@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../components/white_box1.dart'; // WhiteBox 컴포넌트 사용
-import 'date_plan.dart'; // DatePlan 화면으로 이동
-import 'date_log.dart'; // DateLog 화면으로 이동
+import '../components/white_box1.dart';
+import 'date_plan.dart';
+import 'date_log.dart';
 import 'date_course.dart';
 
 class MainScreen extends StatelessWidget {
@@ -10,80 +10,71 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Color(0xFFB21C44), // 전체 배경색 설정 (빨간색)
-        child: Column(
-          children: [
-            // 첫 번째 WhiteBox
-            WhiteBox(
-              title: "다가오는 데이트 일정",
-              date: "D - n일",
-              dateDetails: "(데이트날짜)",
-              location: "(장소이름)",
-              locationDetails: "외 1개 장소",
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DatePlan()), // DatePlan으로 이동
-                );
-              },
-            ),
-
-            // WhiteBox 사이 간격
-            SizedBox(height: 1.0),
-
-            // 두 번째 WhiteBox (최근 데이트 로그)
-            WhiteBox(
-              title: "최근 데이트 로그",
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // 왼쪽 사진 영역
-                  _buildImageSection(),
-
-                  // 오른쪽 정보 영역
-                  _buildInfoSection(),
-                ],
+      body: SingleChildScrollView(
+        child: Container(
+          color: const Color(0xFFB21C44), // 전체 배경색 설정 (빨간색)
+          child: Column(
+            children: [
+              // 첫 번째 WhiteBox
+              WhiteBox(
+                title: "다가오는 데이트 일정",
+                date: "D - n일",
+                dateDetails: "(데이트날짜)",
+                location: "(장소이름)",
+                locationDetails: "외 1개 장소",
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DatePlan()),
+                  );
+                },
               ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DateLog()), // DateLog으로 이동
-                );
-              },
-            ),
+              const SizedBox(height: 1.0),
 
-            // WhiteBox 사이 간격
-            SizedBox(height: 1.0),
-
-            // 새로운 WhiteBox (서랍 (코스))
-            WhiteBox(
-              title: "서랍 (코스)",
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _buildLocationBox("장소"),
-                  _buildLocationBox("대표 장소"),
-                ],
+              // 두 번째 WhiteBox (최근 데이트 로그)
+              WhiteBox(
+                title: "최근 데이트 로그",
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildImageSection(),
+                    _buildInfoSection(),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DateLog()),
+                  );
+                },
               ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DateCourse()), // DateCourse으로 이동
-                );
-              },
-            ),
+              const SizedBox(height: 1.0),
 
-            // 마지막 여백
-            SizedBox(height: 16.0),
+              // 새로운 WhiteBox (서랍 (코스))
+              WhiteBox(
+                title: "서랍 (코스)",
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _buildLocationBox("장소"),
+                    _buildLocationBox("대표 장소"),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DateCourse()),
+                  );
+                },
+              ),
+              const SizedBox(height: 16.0),
 
-            Expanded(
-              child: Container(), // 나머지 공간은 투명하게 유지
-            ),
-          ],
+              Container(
+                height: 50.0, // 여백 높이 설정
+                color: const Color(0xFFB21C44), // 배경색 일치
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -94,7 +85,7 @@ class MainScreen extends StatelessWidget {
     return Container(
       width: 120,
       height: 160,
-      margin: EdgeInsets.only(right: 16.0),
+      margin: const EdgeInsets.only(right: 16.0),
       decoration: BoxDecoration(
         color: Colors.grey[300],
         borderRadius: BorderRadius.circular(8.0),
@@ -114,10 +105,9 @@ class MainScreen extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          // 상단 정보
           Container(
-            padding: EdgeInsets.all(8.0),
-            margin: EdgeInsets.only(bottom: 8.0),
+            padding: const EdgeInsets.all(8.0),
+            margin: const EdgeInsets.only(bottom: 8.0),
             decoration: BoxDecoration(
               color: Colors.grey[200],
               borderRadius: BorderRadius.circular(8.0),
@@ -132,14 +122,13 @@ class MainScreen extends StatelessWidget {
               ],
             ),
           ),
-          // 하단 대표 장소
           Container(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               color: Colors.grey[200],
               borderRadius: BorderRadius.circular(8.0),
             ),
-            child: Center(
+            child: const Center(
               child: Text(
                 "대표 장소",
                 style: TextStyle(
@@ -160,7 +149,7 @@ class MainScreen extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 4.0),
       child: Text(
         text,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 12,
           color: Colors.black54,
         ),
@@ -173,7 +162,7 @@ class MainScreen extends StatelessWidget {
     return Expanded(
       child: Container(
         height: 100,
-        margin: EdgeInsets.symmetric(horizontal: 4.0), // 간격 추가
+        margin: const EdgeInsets.symmetric(horizontal: 4.0),
         decoration: BoxDecoration(
           color: Colors.grey[300],
           borderRadius: BorderRadius.circular(8.0),
@@ -181,7 +170,7 @@ class MainScreen extends StatelessWidget {
         child: Center(
           child: Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Colors.black54,
