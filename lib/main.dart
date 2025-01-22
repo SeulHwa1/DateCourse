@@ -1,12 +1,45 @@
-import 'package:flutter/material.dart';
 import 'screens/main_screen.dart';
 import 'screens/recommend_screen.dart';
 import 'components/app_bar_title.dart';
+// import 'screens/login_screen.dart'; // LoginScreen으로 변경
+// import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+// import 'services/kakao_login_api.dart'; // KakaoLoginApi import
+// import 'controllers/user_controller.dart';
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import './screens/login_screen.dart';
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import './services/kakao_login_api.dart';
+import './controllers/user_controller.dart';  // 상대 경로로 변경
 
 void main() {
-  runApp(const MyApp());
+      WidgetsFlutterBinding.ensureInitialized();
+  KakaoSdk.init(
+        nativeAppKey: 'c8e66f3eeb06886d59978305915d339d',
+       
+    );
+   runApp(
+    ChangeNotifierProvider(
+      create: (_) => UserController(
+        kakaoLoginApi: KakaoLoginApi(),
+      ),
+      child: const MyApp(),
+    ),
+  );
 }
 
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: const AppLayout(),
+//     );
+//   }
+// }
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -14,7 +47,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const AppLayout(),
+      home: Consumer<UserController>(
+        builder: (context, userController, child) {
+          // 사용자의 로그인 상태를 확인
+          if (userController.user == null) {
+            // 로그인되지 않은 경우 LoginScreen을 보여줌
+            return const LoginScreen();
+          } else {
+            // 로그인된 경우 메인 앱 레이아웃을 보여줌
+            return const AppLayout();
+          }
+        },
+      ),
     );
   }
 }
