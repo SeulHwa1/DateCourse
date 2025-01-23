@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/main_screen.dart';
 import 'screens/recommend_screen.dart';
+import 'screens/drawer_screen.dart';
 import 'components/app_bar_title.dart';
 
 void main() {
@@ -35,7 +36,7 @@ class _AppLayoutState extends State<AppLayout> {
     const MainScreen(),
     const Center(child: Text('지도 화면')), // Placeholder for map screen
     const Center(child: Text('일정 화면')), // Placeholder for schedule screen
-    const Center(child: Text('서랍 화면')), // Placeholder for drawer screen
+    const DrawerScreen(), // 서랍 화면
     const Center(child: Text('프로필 화면')), // Placeholder for profile screen
   ];
 
@@ -61,9 +62,7 @@ class _AppLayoutState extends State<AppLayout> {
               ),
             )
           : null,
-      body: _currentBottomIndex == 0
-          ? _topPages[_currentTopIndex]
-          : _bottomPages[_currentBottomIndex],
+      body: _bottomPages[_currentBottomIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentBottomIndex,
         onTap: (index) {
@@ -77,31 +76,31 @@ class _AppLayoutState extends State<AppLayout> {
             icon: _currentBottomIndex == 0
                 ? const Icon(Icons.home)
                 : const Icon(Icons.home_outlined),
-            label: '홈',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: _currentBottomIndex == 1
                 ? const Icon(Icons.map)
                 : const Icon(Icons.map_outlined),
-            label: '지도',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: _currentBottomIndex == 2
                 ? const Icon(Icons.event)
                 : const Icon(Icons.event_outlined),
-            label: '일정',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: _currentBottomIndex == 3
                 ? const Icon(Icons.menu)
                 : const Icon(Icons.menu_outlined),
-            label: '서랍',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: _currentBottomIndex == 4
                 ? const Icon(Icons.person)
                 : const Icon(Icons.person_outline),
-            label: '프로필',
+            label: '',
           ),
         ],
         selectedItemColor: Colors.black,
