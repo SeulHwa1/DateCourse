@@ -9,7 +9,7 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
-  bool isPlaceSelected = true;
+  bool isPlaceSelected = true; // 장소/코스 선택 상태
 
   @override
   Widget build(BuildContext context) {
@@ -48,30 +48,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
             ),
             const SizedBox(height: 16),
 
-            // 장소/코스 리스트
+            // 장소 또는 코스 리스트 (isPlaceSelected에 따라 화면 변경)
             Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                padding: const EdgeInsets.all(16),
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SavedPlacesScreen(),
-                        ),
-                      );
-                    },
-                    child: _buildGridItem("저장된 모든 장소", "6개의 장소"),
-                  ),
-                  _buildGridItem("공유된 장소", "2개의 장소"),
-                  _buildGridItem("파스타", "2개의 장소"),
-                  _buildAddNewItem(),
-                ],
-              ),
+              child: isPlaceSelected ? _buildPlaceList() : _buildCourseList(),
             ),
           ],
         ),
@@ -79,6 +58,49 @@ class _DrawerScreenState extends State<DrawerScreen> {
     );
   }
 
+  /// 장소 탭에서 보이는 리스트
+  Widget _buildPlaceList() {
+    return GridView.count(
+      crossAxisCount: 2,
+      crossAxisSpacing: 16,
+      mainAxisSpacing: 16,
+      padding: const EdgeInsets.all(16),
+      children: [
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SavedPlacesScreen(),
+              ),
+            );
+          },
+          child: _buildGridItem("저장된 모든 장소", "6개의 장소"),
+        ),
+        _buildGridItem("공유된 장소", "2개의 장소"),
+        _buildGridItem("최근 선택한 장소", "2개의 장소"),
+        _buildAddNewItem(),
+      ],
+    );
+  }
+
+  /// 코스 탭에서 보이는 리스트 (첨부된 이미지처럼 구성)
+  Widget _buildCourseList() {
+    return GridView.count(
+      crossAxisCount: 2,
+      crossAxisSpacing: 16,
+      mainAxisSpacing: 16,
+      padding: const EdgeInsets.all(16),
+      children: [
+        _buildGridItem("저장된 모든 코스", "6개의 코스"),
+        _buildGridItem("다녀온 코스", "2개의 코스"),
+        _buildGridItem("공유된 코스", "2개의 코스"),
+        _buildAddNewItem(),
+      ],
+    );
+  }
+
+  /// 상단 탭 버튼 (장소/코스 선택)
   Widget _buildTabButton(String title, bool isSelected, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
@@ -101,6 +123,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
     );
   }
 
+  /// 정렬 버튼
   Widget _buildSortButton(String title) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -120,6 +143,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
     );
   }
 
+  /// 리스트 아이템 생성
   Widget _buildGridItem(String title, String subtitle) {
     return Container(
       decoration: BoxDecoration(
@@ -127,7 +151,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: Color.fromRGBO(128, 128, 128, 0.3),
+            color: const Color.fromRGBO(0, 0, 0, 0.3),
             spreadRadius: 2,
             blurRadius: 5,
             offset: const Offset(0, 3),
@@ -173,6 +197,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
     );
   }
 
+  /// 새로운 목록 추가 버튼
   Widget _buildAddNewItem() {
     return GestureDetector(
       onTap: () {
@@ -184,7 +209,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.3),
+              color: const Color.fromRGBO(0, 0, 0, 0.3),
               spreadRadius: 2,
               blurRadius: 5,
               offset: const Offset(0, 3),

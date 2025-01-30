@@ -62,7 +62,9 @@ class _AppLayoutState extends State<AppLayout> {
               ),
             )
           : null,
-      body: _bottomPages[_currentBottomIndex],
+      body: _currentBottomIndex == 0
+          ? _topPages[_currentTopIndex] // 추천피드 탭 전환 기능 추가
+          : _bottomPages[_currentBottomIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentBottomIndex,
         onTap: (index) {
